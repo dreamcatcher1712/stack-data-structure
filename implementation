@@ -1,0 +1,238 @@
+using arrays:
+
+#include<stdio.h>
+int stack[100],choice,n,top,x,i;
+void push(void);
+void pop(void);
+void display(void);
+int main()
+{
+    //clrscr();
+    top=-1;
+    printf("\n Enter the size of STACK[MAX=100]:");
+    scanf("%d",&n);
+    printf("\n\t STACK OPERATIONS USING ARRAY");
+    printf("\n\t--------------------------------");
+    printf("\n\t 1.PUSH\n\t 2.POP\n\t 3.DISPLAY\n\t 4.EXIT");
+    do
+    {
+        printf("\n Enter the Choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            {
+                push();
+                break;
+            }
+            case 2:
+            {
+                pop();
+                break;
+            }
+            case 3:
+            {
+                display();
+                break;
+            }
+            case 4:
+            {
+                printf("\n\t EXIT POINT ");
+                break;
+            }
+            default:
+            {
+                printf ("\n\t Please Enter a Valid Choice(1/2/3/4)");
+            }
+                
+        }
+    }
+    while(choice!=4);
+    return 0;
+}
+void push()
+{
+    if(top>=n-1)
+    {
+        printf("\n\tSTACK is over flow");
+        
+    }
+    else
+    {
+        printf(" Enter a value to be pushed:");
+        scanf("%d",&x);
+        top++;
+        stack[top]=x;
+    }
+}
+void pop()
+{
+    if(top<=-1)
+    {
+        printf("\n\t Stack is under flow");
+    }
+    else
+    {
+        printf("\n\t The popped elements is %d",stack[top]);
+        top--;
+    }
+}
+void display()
+{
+    if(top>=0)
+    {
+        printf("\n The elements in STACK \n");
+        for(i=top; i>=0; i--)
+            printf("\n%d",stack[i]);
+        printf("\n Press Next Choice");
+    }
+    else
+    {
+        printf("\n The STACK is empty");
+    }
+   
+}
+
+using linked lists:
+// C++ program to Implement a stack
+// using singly linked list
+#include <bits/stdc++.h>
+using namespace std;
+
+// Declare linked list node
+
+struct Node {
+	int data;
+	Node* link;
+};
+
+Node* top;
+
+// Utility function to add an element
+// data in the stack insert at the beginning
+void push(int data)
+{
+
+	// Create new node temp and allocate memory in heap
+	Node* temp = new Node();
+
+	// Check if stack (heap) is full.
+	// Then inserting an element would
+	// lead to stack overflow
+	if (!temp) {
+		cout << "\nStack Overflow";
+		exit(1);
+	}
+
+	// Initialize data into temp data field
+	temp->data = data;
+
+	// Put top pointer reference into temp link
+	temp->link = top;
+
+	// Make temp as top of Stack
+	top = temp;
+}
+
+// Utility function to check if
+// the stack is empty or not
+int isEmpty()
+{
+	// If top is NULL it means that
+	// there are no elements are in stack
+	return top == NULL;
+}
+
+// Utility function to return top element in a stack
+int peek()
+{
+
+	// If stack is not empty , return the top element
+	if (!isEmpty())
+		return top->data;
+	else
+		exit(1);
+}
+
+// Utility function to pop top
+// element from the stack
+void pop()
+{
+	Node* temp;
+
+	// Check for stack underflow
+	if (top == NULL) {
+		cout << "\nStack Underflow" << endl;
+		exit(1);
+	}
+	else {
+
+		// Assign top to temp
+		temp = top;
+
+		// Assign second node to top
+		top = top->link;
+
+		// This will automatically destroy
+		// the link between first node and second node
+
+		// Release memory of top node
+		// i.e delete the node
+		free(temp);
+	}
+}
+
+// Function to print all the
+// elements of the stack
+void display()
+{
+	Node* temp;
+
+	// Check for stack underflow
+	if (top == NULL) {
+		cout << "\nStack Underflow";
+		exit(1);
+	}
+	else {
+		temp = top;
+		while (temp != NULL) {
+
+			// Print node data
+			cout << temp->data;
+
+			// Assign temp link to temp
+			temp = temp->link;
+			if(temp != NULL)
+				cout << " -> ";
+		}
+	}
+}
+
+// Driver Code
+int main()
+{
+
+	// Push the elements of stack
+	push(11);
+	push(22);
+	push(33);
+	push(44);
+
+	// Display stack elements
+	display();
+
+	// Print top element of stack
+	cout << "\nTop element is " << peek() << endl;
+
+	// Delete top elements of stack
+	pop();
+	pop();
+
+	// Display stack elements
+	display();
+
+	// Print top element of stack
+	cout << "\nTop element is " << peek() << endl;
+
+	return 0;
+}
